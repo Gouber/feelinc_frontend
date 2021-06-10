@@ -14,27 +14,27 @@ export default function Demo(){
 
     //Must pass the second argument as an empty array to
     //prevent the function being called for every text update
-    useEffect(() => {
-        if(!socket){
-            socket = openSocket('http://localhost:3001/',{transports: ['websocket']});
-            console.log("Connected")
-            socket.on("change",function(msg){
-                console.log("Data state: ")
-                console.log(data)
-                //console.log(msg["fullDocument"])
-            })
-            socket.on("disconnect",function(){console.log("Disconnected socket")})
-        }else{
-           socket.disconnect()
-            socket = openSocket('http://localhost:3001/',{transports: ['websocket']});
-            console.log("Connected")
-            socket.on("change",function(msg){
-                console.log("Data state: ")
-                console.log(data)
-                //console.log(msg["fullDocument"])
-            })
-        }
-    }, []);
+    // useEffect(() => {
+    //     if(!socket){
+    //         socket = openSocket('http://localhost:3001/',{transports: ['websocket']});
+    //         console.log("Connected")
+    //         socket.on("change",function(msg){
+    //             console.log("Data state: ")
+    //             console.log(data)
+    //             //console.log(msg["fullDocument"])
+    //         })
+    //         socket.on("disconnect",function(){console.log("Disconnected socket")})
+    //     }else{
+    //        socket.disconnect()
+    //         socket = openSocket('http://localhost:3001/',{transports: ['websocket']});
+    //         console.log("Connected")
+    //         socket.on("change",function(msg){
+    //             console.log("Data state: ")
+    //             console.log(data)
+    //             //console.log(msg["fullDocument"])
+    //         })
+    //     }
+    // }, []);
     
     
     useEffect(() => {
@@ -70,4 +70,31 @@ function handleClick(startDate, ticker, setData){
    }).then(response => response.json()).then(data => {
        setData(data)
    })
+    //Handle socket initiation/reinitiation
+   if(socket){
+       //must disconnect and reconnect
+       socket.disconnect()
+       socket = openSocket('http://localhost:3001/',{transports: ['websocket']});
+       console.log("Connected")
+       socket.on("change",function(msg){
+           console.log("Received Change!")
+           //console.log(msg["fullDocument"])
+       })
+       socket.on("disconnect",function(){
+           console.log("Disconnected socket")
+       })
+
+   }else{
+       //just connect
+       socket = openSocket('http://localhost:3001/',{transports: ['websocket']});
+       console.log("Connected")
+       socket.on("change",function(msg){
+           console.log("Received Change!")
+           //console.log(msg["fullDocument"])
+       })
+       socket.on("disconnect",function(){
+           console.log("Disconnected socket")
+       })
+   }
+
 }
