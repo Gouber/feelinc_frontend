@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import All from "./components/All"
 import Specific from "./components/Specific";
+import Demo from "./components/Demo"
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,6 +22,9 @@ function App() {
             <li>
               <Link to="/specific">Specific</Link>
             </li>
+            <li>
+              <Link to="/demo">Demo</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
@@ -29,6 +33,9 @@ function App() {
           </Route>
           <Route path="/specific">
             <Specific />
+          </Route>
+          <Route path="/demo">
+            <Demo />
           </Route>
         </Switch>
       </div>
