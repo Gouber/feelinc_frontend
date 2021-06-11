@@ -56,11 +56,28 @@ export default class DemoComponent extends React.Component{
             //Known bug from the library
             this.setState({
                 ...this.state,
-                data: []
+                data: [],
+                secondData: [],
+                thirdData: []
             },() => {
+
+                console.log("newState: " + newState)
+                let secondState = []
+                let thirdState = []
+
+                newState.forEach(function(item){
+                    let name = item["name"]
+                    let score = item["pos"] - item["neg"]
+                    let score_adjusted = (item["pos"] - item["neg"]) * (item["pos"] + item["neg"] + item["neutr"])
+                    secondState.push({"name":name, "val": score})
+                    thirdState.push({"name":name, "val": score_adjusted})
+                })
+
                 this.setState({
                     ...this.state,
-                    data: newState
+                    data: newState,
+                   secondData: secondState,
+                   thirdData: thirdState
                 })
             })
         }else{
@@ -78,11 +95,27 @@ export default class DemoComponent extends React.Component{
             //Known bug from the library
             this.setState({
                 ...this.state,
-                data: []
+                data: [],
+                secondData: [],
+                thirdData: []
             }, () => {
+
+                let secondState = []
+                let thirdState = []
+                //
+                localData.forEach(function(item){
+                    let name = item["name"]
+                    let score = item["pos"] - item["neg"]
+                    let score_adjusted = (item["pos"] - item["neg"]) * (item["pos"] + item["neg"] + item["neutr"])
+                    secondState.push({"name":name, "val": score})
+                    thirdState.push({"name":name, "val": score_adjusted})
+                })
+
                 this.setState({
                     ...this.state,
-                    data: localData
+                    data: localData,
+                    secondData: secondState,
+                    thirdData: thirdState
                 })
             })
         }
