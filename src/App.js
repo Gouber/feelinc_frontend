@@ -3,6 +3,7 @@ import './App.css';
 import All from "./components/All"
 import Specific from "./components/Specific";
 import Demo from "./components/Demo"
+import DemoComponent from "./components/DemoComponent"
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,6 +26,9 @@ function App() {
             <li>
               <Link to="/demo">Demo</Link>
             </li>
+            <li>
+              <Link to="/demoComponent">Demo Component</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
@@ -36,6 +40,9 @@ function App() {
           </Route>
           <Route path="/demo">
             <Demo />
+          </Route>
+          <Route path="/demoComponent">
+            <DemoComponent />
           </Route>
         </Switch>
       </div>
